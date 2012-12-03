@@ -1,0 +1,5 @@
+[
+	{ "caption": "-", "id": "custom_commands" },
+    { "command": "runvarscoper", "caption": "Run this file on VarScoper" },
+    { "command": "runvarscoperhighligh", "caption": "Highlight VarScoper violations" }
+]
