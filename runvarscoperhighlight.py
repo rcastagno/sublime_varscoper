@@ -1,5 +1,4 @@
 import sublime, sublime_plugin
-import urllib2
 import urllib
 from xml.dom import minidom
 
@@ -12,15 +11,15 @@ class runvarscoperhighlighCommand(sublime_plugin.TextCommand):
 			varScoperLink = varScoperBaseURL + 'filePath=' + self.view.file_name()
 			print(varScoperLink)
 			try:
-				proxy_support = urllib2.ProxyHandler({})
-				opener = urllib2.build_opener(proxy_support)
-				urllib2.install_opener(opener)
-				http_handler = urllib2.HTTPHandler()
-				opener = urllib2.build_opener(http_handler)
-				req = urllib2.Request(varScoperLink)
-				resp = urllib2.urlopen(req)
+				proxy_support = urllib.request.ProxyHandler({})
+				opener = urllib.request.build_opener(proxy_support)
+				urllib.request.install_opener(opener)
+				http_handler = urllib.request.HTTPHandler()
+				opener = urllib.request.build_opener(http_handler)
+				req = urllib.request.Request(varScoperLink)
+				resp = urllib.request.urlopen(req)
 
-				code = urllib2.urlopen(varscoper_cfm_url).getcode()
+				code = urllib.request.urlopen(varscoper_cfm_url).getcode()
 				if code != 200:
 					sublime.error_message('Server '+varscoper_cfm_url+' non raggiungibile')
 					return
@@ -48,7 +47,7 @@ class runvarscoperhighlighCommand(sublime_plugin.TextCommand):
 				if len(itemlist) > 0:
 					sublime.error_message("Found " + str(len(itemlist)) + " VarScoper violations")
 
-			except (urllib2.HTTPError) as (e):
+			except (urllib.error.HTTPError) as e:
 				sublime.error_message(str(e))
 
 	def getText(self, nodelist):
